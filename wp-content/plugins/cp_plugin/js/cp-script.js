@@ -21,4 +21,32 @@ jQuery(document).ready(function($) {
 		});
     });
 
+    
+    jQuery(".edit-employee").click(function(event){
+        event.preventDefault();
+        let emp_id = jQuery(this).closest('tr').data('employee-id');
+        let data = {
+			'action': 'edit_employee',
+			'emp_id': emp_id
+		};
+        jQuery.post(ajaxurl, data, function(response) {
+            response = $.parseJSON(response);
+            console.log(response);
+            
+                    // $("#getCodeModal").modal("show");
+            if(response.html){
+                
+                    // Add response in Modal body
+                    jQuery('.modal-body').html(response.html);
+
+                    // Display Modal
+                    jQuery('#myModal').modal('show'); 
+                // jQuery(tableDataObj).html(response.html);
+            }
+		});
+        
+        // console.log(jQuery(this).closest('tr').data('employee-id'));
+
+    });
+
 });

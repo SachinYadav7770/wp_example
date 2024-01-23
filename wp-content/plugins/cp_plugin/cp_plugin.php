@@ -77,6 +77,13 @@ register_deactivation_hook( __FILE__, 'pluginprefix_deactivate' );
 // add_action( 'wp_enqueue_scripts', 'enqueue_scripts');
 
 function admin_enqueue_scripts() {
+    
+    wp_register_script( 'bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' );
+    wp_enqueue_script( 'bootstrap_js' );
+    // wp_register_script( 'jQuery', 'https://code.jquery.com/jquery-3.3.1.slim.min.js' );
+    // wp_enqueue_script( 'jQuery' );
+    wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
+
     // $inline_script = 'var ajaxAdminUrl = "' . admin_url('admin.php') . '";';
     wp_add_inline_script('jquery', sprintf( 'var ajaxAdminUrl = %s;', wp_json_encode( admin_url('admin.php') ) ), 'before' );
 	wp_enqueue_script( 'custom-js', plugin_dir_url( __FILE__ ) . 'js/cp-script.js', array( 'jquery' ), '', true );
@@ -159,10 +166,17 @@ function my_action() {
 	wp_die(); // this is required to terminate immediately and return a proper response
 }
 
-function emp_data($requestSearchText = '') {
+function emp_data($requestSearchText = '', $emp_id = '') {
     global $wpdb;
     $table_name = $wpdb->prefix . 'emp';
-    $results = $wpdb->get_results("SELECT * FROM $table_name WHERE concat(first_name,last_name) like '%".$requestSearchText."%'");
+    $sql = "SELECT * FROM $table_name ";
+    if(!empty($emp_id)){
+        $sql .= "WHERE e_id = '".$emp_id."'";
+    }else{
+        $sql .= "WHERE concat(first_name,last_name) like '%".$requestSearchText."%'";
+    }
+    // exit($sql);
+    $results = $wpdb->get_results($sql);
 
     return $results;
 	// if ( !current_user_can( 'manage_options' ) )  {
@@ -171,6 +185,25 @@ function emp_data($requestSearchText = '') {
     // // echo $_GET['search'];
     // include 'admin/empDataTable.php';
 
-	// wp_die(); // this is required to terminate immediately and return a proper response
+	wp_die(); // this is required to terminate immediately and return a proper response
 }
+
+function edit_employee(){
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+    $results = emp_data('', $_POST['emp_id']);
+
+    ob_start();
+    include('admin/empInputForm.php');
+    $file1 = ob_get_clean();
+    $response=array();
+    //of course below code doesn't work
+    $response['html'] = $file1;
+    echo json_encode($response);
+	wp_die(); // this is required to terminate immediately and return a proper response
+    // admin\empEditEmployee.php
+}
+
+add_action( 'wp_ajax_edit_employee', 'edit_employee' );
 ?>
