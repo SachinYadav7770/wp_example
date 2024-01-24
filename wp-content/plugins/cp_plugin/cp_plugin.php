@@ -192,8 +192,15 @@ function edit_employee(){
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
-    $results = emp_data('', $_POST['emp_id']);
-
+    $result = emp_data('', $_POST['emp_id']);
+    $data = [
+        'e_id' => $result[0]->e_id ?? '',
+        'first_name' => $result[0]->first_name ?? '',
+        'last_name' => $result[0]->last_name ?? '',
+        'status' => $result[0]->status ?? ''
+    ];
+// print_r($data);
+// exit();
     ob_start();
     include('admin/empInputForm.php');
     $file1 = ob_get_clean();
@@ -206,4 +213,51 @@ function edit_employee(){
 }
 
 add_action( 'wp_ajax_edit_employee', 'edit_employee' );
+
+
+
+function store_employee(){
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+    
+    
+    $table_name = $wpdb->prefix . 'emp';
+    $data = [
+        'first_name' => $_POST['first_name'],
+        'last_name'    => $_POST['last_name'],
+        'status' => ($_POST['status'] == 'active') ? 1 : 0,
+    ];
+
+    if(!empty($_POST['e_id'])){
+        $wherecondition=array('e_id'=>$_POST['e_id']);
+        $wpdb->update($table_name, $data, $wherecondition);
+    }else{
+        $wpdb->insert($table_name, $data);
+    }
+    $success = empty($wpdb->last_error);
+    
+    return $success;
+    // return my_action();
+//     $result = emp_data('', $_POST['emp_id']);
+//     $data = [
+//         'e_id' => $result[0]->e_id ?? '',
+//         'first_name' => $result[0]->first_name ?? '',
+//         'last_name' => $result[0]->last_name ?? '',
+//         'status' => $result[0]->status ?? ''
+//     ];
+// // print_r($data);
+// // exit();
+//     ob_start();
+//     include('admin/empInputForm.php');
+//     $file1 = ob_get_clean();
+//     $response=array();
+//     //of course below code doesn't work
+//     $response['html'] = $file1;
+//     echo json_encode($response);
+	wp_die(); // this is required to terminate immediately and return a proper response
+    // admin\empEditEmployee.php
+}
+
+add_action( 'wp_ajax_store_employee', 'store_employee' );
 ?>

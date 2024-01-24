@@ -49,4 +49,29 @@ jQuery(document).ready(function($) {
 
     });
 
+    jQuery(document).on('click','#emp_form', function(event) {
+        event.preventDefault();
+        // alert('fasfasd');
+        let formData = jQuery(this).serialize();
+        
+        let data = {
+            'action': 'store_employee',
+            'formData': formData
+        };
+        // let tableDataObj = jQuery("#emp-table").find('tbody');
+        console.log(data);
+        // jQuery(tableDataObj).html('');
+        // since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php
+        jQuery.post(ajaxurl, data, function(response) {
+            response = $.parseJSON(response);
+            console.log(response);
+            if(response.html){
+                jQuery(tableDataObj).html(response.html);
+            }
+        });
+    });
+
+
 });
+
+// jQuery("#emp_form").click(function(event){
