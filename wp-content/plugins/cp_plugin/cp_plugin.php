@@ -192,7 +192,8 @@ function edit_employee(){
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
-    $result = emp_data('', $_POST['emp_id']);
+    $result = !empty($_POST['emp_id']) ? emp_data('', $_POST['emp_id']) : [];
+    // print_r($_POST);
     $data = [
         'e_id' => $result[0]->e_id ?? '',
         'first_name' => $result[0]->first_name ?? '',
@@ -221,23 +222,26 @@ function store_employee(){
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
     
-    
+    global $wpdb;
     $table_name = $wpdb->prefix . 'emp';
+    // $formData = unserialize($_POST['formData']);
+    parse_str($_POST['formData'], $formData);
+    // print_r($searcharray);
     $data = [
-        'first_name' => $_POST['first_name'],
-        'last_name'    => $_POST['last_name'],
-        'status' => ($_POST['status'] == 'active') ? 1 : 0,
+        'first_name' => $formData['first_name'],
+        'last_name'    => $formData['last_name'],
+        'status' => ($formData['status'] == 'active') ? 1 : 0,
     ];
-
-    if(!empty($_POST['e_id'])){
-        $wherecondition=array('e_id'=>$_POST['e_id']);
+// print_r($formData);
+    if(!empty($formData['e_id'])){
+        $wherecondition=array('e_id'=>$formData['e_id']);
         $wpdb->update($table_name, $data, $wherecondition);
     }else{
         $wpdb->insert($table_name, $data);
     }
     $success = empty($wpdb->last_error);
-    
-    return $success;
+    echo json_encode(['response' => $success]);
+    // return json_encode(['response' => $success]);
     // return my_action();
 //     $result = emp_data('', $_POST['emp_id']);
 //     $data = [

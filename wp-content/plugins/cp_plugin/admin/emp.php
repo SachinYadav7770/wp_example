@@ -5,6 +5,7 @@
         <input type="text" name="search" id="search">
         <input type="submit" value="search">
     </form>
+    <button type="button" class='edit-employee'>Add Employee</button>
     <table class="wp-list-table widefat fixed striped table-view-list posts" id="emp-table">    
         <thead>
             <tr class="heading">

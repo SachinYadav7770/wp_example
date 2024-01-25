@@ -1,0 +1,72 @@
+2024-01-25T18:44:42+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T18:44:44+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T18:44:45+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T18:44:47+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T18:44:48+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T18:45:13+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T18:46:44+00:00 CRITICAL Uncaught Error: Call to a member function insert() on null in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:236
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 236
+
+2024-01-25T19:03:29+00:00 CRITICAL Uncaught TypeError: Cannot access offset of type string on string in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php:227
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): store_employee('')
+#1 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(334): WP_Hook->apply_filters('', Array)
+#2 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 C:\xampp\htdocs\wordpress\wp-admin\admin-ajax.php(188): do_action('wp_ajax_store_e...')
+#4 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php on line 227
+
