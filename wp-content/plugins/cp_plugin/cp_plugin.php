@@ -83,7 +83,14 @@ function admin_enqueue_scripts() {
     
     wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js' );
     wp_enqueue_script( 'jQuery' );
+
+    wp_register_script( 'toastify_js', 'https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.js' );
+    wp_enqueue_script( 'toastify_js' );
+    // <!-- TOASTIFY -->
+    // <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    // <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
+    wp_enqueue_style( 'toastify_css', 'https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.min.css');
 
     // $inline_script = 'var ajaxAdminUrl = "' . admin_url('admin.php') . '";';
     wp_add_inline_script('jquery', sprintf( 'var ajaxAdminUrl = %s;', wp_json_encode( admin_url('admin.php') ) ), 'before' );
@@ -228,14 +235,21 @@ function store_employee(){
         'status' => ($formData['status'] == 'active') ? 1 : 0,
     ];
 // print_r($formData);
+    $message = '';
     if(!empty($formData['e_id'])){
         $wherecondition=array('e_id'=>$formData['e_id']);
         $wpdb->update($table_name, $data, $wherecondition);
+        $message = 'Record modified in table';
     }else{
         $wpdb->insert($table_name, $data);
+        $message = 'Record insert in table';
     }
     $success = empty($wpdb->last_error);
-    echo json_encode(['response' => $success]);
+    $response = ['status' => $success, 'message' => $wpdb->last_error];
+    if($success){
+        $response['message'] = $message;
+    }
+    echo json_encode($response);
     // return json_encode(['response' => $success]);
     // return my_action();
 //     $result = emp_data('', $_POST['emp_id']);
@@ -283,7 +297,11 @@ function delete_employee(){
         $wpdb->delete( $table_name, $wherecondition);
     }
     $success = empty($wpdb->last_error) ?? 'false';
-    echo json_encode(['response' => $success]);
+    $response = ['status' => $success, 'message' => $wpdb->last_error];
+    if($success){
+        $response['message'] = 'Record deleted from the table';
+    }
+    echo json_encode($response);
 	wp_die(); // this is required to terminate immediately and return a proper response
     // admin\empEditEmployee.php
 }

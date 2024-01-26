@@ -1,11 +1,17 @@
 <div class="wrap">
     <h2>HTML Table</h2>
-    <form action="<?php echo admin_url('admin.php');?>" id="cp_sub_page_search_form">
-        <input type="hidden" name="page" value="my-submenu-handle">
-        <input type="text" name="search" id="search">
-        <input type="submit" value="search">
-    </form>
-    <button type="button" class='edit-employee'>Add Employee</button>
+    <div class="row mb-1">
+        <div class="col-6">
+            <form action="<?php echo admin_url('admin.php');?>" id="cp_sub_page_search_form" class="float-left">
+                <input type="hidden" name="page" value="my-submenu-handle">
+                <input type="text" name="search" id="search">
+                <input type="submit" value="search">
+            </form>
+        </div>
+        <div class="col-6">
+            <button type="button" class='edit-employee float-right btn btn-outline-success'>Add Employee</button>
+        </div>
+    </div>
     <table class="wp-list-table widefat fixed striped table-view-list posts" id="emp-table">    
         <thead>
             <tr class="heading">

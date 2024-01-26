@@ -55,8 +55,10 @@ jQuery(document).ready(function($) {
         jQuery.post(ajaxurl, data, function(response) {
             response = $.parseJSON(response);
             console.log(response.response);
-            if(response.response){
-                // jQuery(tableDataObj).html(response.html);
+            if(response.status){
+                toastMessage(response.message,'success');
+            }else{
+                toastMessage(response.message,'danger');
             }
         });
     });
@@ -76,49 +78,52 @@ jQuery(document).ready(function($) {
                 return false;
             }
 
-            swal({
-                text: "Once deleted, you will not be able to recover this imaginary file!",
-                target: "#toast-alert"
-            });
-            
-            // let emp_id = jQuery(this).closest('tr').data('employee-id');
-            // let data = {
-            //     'action': 'delete_employee',
-            //     'emp_id': emp_id
-            // };
+            let emp_id = jQuery(this).closest('tr').data('employee-id');
+            let data = {
+                'action': 'delete_employee',
+                'emp_id': emp_id
+            };
 
-            // jQuery.post(ajaxurl, data, function(response) {
-            //     response = $.parseJSON(response);
-            //     console.log(response.response);
-            //     if(response.response){
-            //         swal("Poof! Your imaginary file has been deleted!", {
-            //           icon: "success",
-            //         });
-            //     }else{
-            //         swal("Your imaginary file is safe!");
-            //     }
-            // });
+            jQuery.post(ajaxurl, data, function(response) {
+                response = $.parseJSON(response);
+                console.log(response.response);
+                if(response.status){
+                    toastMessage(response.message,'success');
+                }else{
+                    toastMessage(response.message,'danger');
+                }
+            });
         });
-        // confirm("Press a button!");
-        // if(!confirm("Press a button!")){
-        //     return false;
-        // }
-        // sweetAlert("title", "description", "error");
-        // swal("Good job!", "You clicked the button!", "success");
-//         let emp_id = jQuery(this).closest('tr').data('employee-id');
-//         let data = {
-// 			'action': 'delete_employee',
-// 			'emp_id': emp_id
-// 		};
-// console.log(data);
-        // jQuery.post(ajaxurl, data, function(response) {
-        //     response = $.parseJSON(response);
-        //     console.log(response.response);
-        //     if(response.response){
-        //         // jQuery(tableDataObj).html(response.html);
-        //     }
-        // });
     });
 
 
 });
+
+
+function toastMessage(message,type) {
+    let toastifyData = {
+        text: message ?? "This is a toast message",
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        duration: 5000,
+        backgroundColor:'linear-gradient(135deg,#73a5ff,#5477f5)'
+    };
+    switch(type) {
+        case 'warning':
+            toastifyData['backgroundColor'] = 'linear-gradient(135deg, #FFFF00, #FF9800)';
+          break;
+
+        case 'success':
+            toastifyData['backgroundColor'] = 'linear-gradient(135deg, #33FF00, #336600)';
+          break;
+        
+        case 'danger':
+            toastifyData['backgroundColor'] = 'linear-gradient(135deg, #FF0000, #FF0066)';
+          break;
+
+        default:
+      }
+    console.log(toastifyData);
+    Toastify(toastifyData).showToast();
+    // myToast.showToast();
+}
