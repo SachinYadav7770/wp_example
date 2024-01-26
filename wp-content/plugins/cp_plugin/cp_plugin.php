@@ -80,8 +80,9 @@ function admin_enqueue_scripts() {
     
     wp_register_script( 'bootstrap_js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' );
     wp_enqueue_script( 'bootstrap_js' );
-    // wp_register_script( 'jQuery', 'https://code.jquery.com/jquery-3.3.1.slim.min.js' );
-    // wp_enqueue_script( 'jQuery' );
+    
+    wp_register_script( 'jQuery', 'https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js' );
+    wp_enqueue_script( 'jQuery' );
     wp_enqueue_style( 'bootstrap_css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css');
 
     // $inline_script = 'var ajaxAdminUrl = "' . admin_url('admin.php') . '";';
@@ -170,22 +171,16 @@ function emp_data($requestSearchText = '', $emp_id = '') {
     global $wpdb;
     $table_name = $wpdb->prefix . 'emp';
     $sql = "SELECT * FROM $table_name ";
+
     if(!empty($emp_id)){
         $sql .= "WHERE e_id = '".$emp_id."'";
     }else{
         $sql .= "WHERE concat(first_name,last_name) like '%".$requestSearchText."%'";
     }
-    // exit($sql);
+
     $results = $wpdb->get_results($sql);
-
     return $results;
-	// if ( !current_user_can( 'manage_options' ) )  {
-	// 	wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
-	// }
-    // // echo $_GET['search'];
-    // include 'admin/empDataTable.php';
-
-	wp_die(); // this is required to terminate immediately and return a proper response
+	wp_die();
 }
 
 function edit_employee(){
@@ -264,4 +259,33 @@ function store_employee(){
 }
 
 add_action( 'wp_ajax_store_employee', 'store_employee' );
+
+
+
+function delete_employee(){
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+    
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'emp';
+    // $formData = unserialize($_POST['formData']);
+    // parse_str($_POST['emp_id'], $formData);
+    // // print_r($searcharray);
+    // $data = [
+    //     'first_name' => $formData['first_name'],
+    //     'last_name'    => $formData['last_name'],
+    //     'status' => ($formData['status'] == 'active') ? 1 : 0,
+    // ];
+// print_r($formData);
+    if(!empty($_POST['emp_id'])){
+        $wherecondition=array('e_id'=>$_POST['emp_id']);
+        $wpdb->delete( $table_name, $wherecondition);
+    }
+    $success = empty($wpdb->last_error) ?? 'false';
+    echo json_encode(['response' => $success]);
+	wp_die(); // this is required to terminate immediately and return a proper response
+    // admin\empEditEmployee.php
+}
+add_action( 'wp_ajax_delete_employee', 'delete_employee' );
 ?>
