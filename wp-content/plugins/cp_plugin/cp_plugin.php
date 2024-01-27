@@ -8,13 +8,6 @@
  * 
 */
 
-// /**
-//  * Register the "book" custom post type
-//  */
-// function pluginprefix_setup_post_type() {
-// 	register_post_type( 'book', ['public' => true ] ); 
-// } 
-// add_action( 'init', 'pluginprefix_setup_post_type' );
 
 if(!defined('ABSPATH')){
     header('Location: /');
@@ -195,24 +188,21 @@ function edit_employee(){
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
     $result = !empty($_POST['emp_id']) ? emp_data('', $_POST['emp_id']) : [];
-    // print_r($_POST);
+    
     $data = [
         'e_id' => $result[0]->e_id ?? '',
         'first_name' => $result[0]->first_name ?? '',
         'last_name' => $result[0]->last_name ?? '',
         'status' => $result[0]->status ?? ''
     ];
-// print_r($data);
-// exit();
+
     ob_start();
     include('admin/empInputForm.php');
     $file1 = ob_get_clean();
     $response=array();
-    //of course below code doesn't work
     $response['html'] = $file1;
     echo json_encode($response);
-	wp_die(); // this is required to terminate immediately and return a proper response
-    // admin\empEditEmployee.php
+	wp_die();
 }
 
 add_action( 'wp_ajax_edit_employee', 'edit_employee' );
@@ -226,15 +216,14 @@ function store_employee(){
     
     global $wpdb;
     $table_name = $wpdb->prefix . 'emp';
-    // $formData = unserialize($_POST['formData']);
     parse_str($_POST['formData'], $formData);
-    // print_r($searcharray);
+
     $data = [
         'first_name' => $formData['first_name'],
         'last_name'    => $formData['last_name'],
         'status' => ($formData['status'] == 'active') ? 1 : 0,
     ];
-// print_r($formData);
+
     $message = '';
     if(!empty($formData['e_id'])){
         $wherecondition=array('e_id'=>$formData['e_id']);
@@ -250,26 +239,7 @@ function store_employee(){
         $response['message'] = $message;
     }
     echo json_encode($response);
-    // return json_encode(['response' => $success]);
-    // return my_action();
-//     $result = emp_data('', $_POST['emp_id']);
-//     $data = [
-//         'e_id' => $result[0]->e_id ?? '',
-//         'first_name' => $result[0]->first_name ?? '',
-//         'last_name' => $result[0]->last_name ?? '',
-//         'status' => $result[0]->status ?? ''
-//     ];
-// // print_r($data);
-// // exit();
-//     ob_start();
-//     include('admin/empInputForm.php');
-//     $file1 = ob_get_clean();
-//     $response=array();
-//     //of course below code doesn't work
-//     $response['html'] = $file1;
-//     echo json_encode($response);
-	wp_die(); // this is required to terminate immediately and return a proper response
-    // admin\empEditEmployee.php
+	wp_die();
 }
 
 add_action( 'wp_ajax_store_employee', 'store_employee' );
@@ -283,15 +253,6 @@ function delete_employee(){
     
     global $wpdb;
     $table_name = $wpdb->prefix . 'emp';
-    // $formData = unserialize($_POST['formData']);
-    // parse_str($_POST['emp_id'], $formData);
-    // // print_r($searcharray);
-    // $data = [
-    //     'first_name' => $formData['first_name'],
-    //     'last_name'    => $formData['last_name'],
-    //     'status' => ($formData['status'] == 'active') ? 1 : 0,
-    // ];
-// print_r($formData);
     if(!empty($_POST['emp_id'])){
         $wherecondition=array('e_id'=>$_POST['emp_id']);
         $wpdb->delete( $table_name, $wherecondition);
@@ -302,8 +263,7 @@ function delete_employee(){
         $response['message'] = 'Record deleted from the table';
     }
     echo json_encode($response);
-	wp_die(); // this is required to terminate immediately and return a proper response
-    // admin\empEditEmployee.php
+	wp_die();
 }
 add_action( 'wp_ajax_delete_employee', 'delete_employee' );
 ?>
