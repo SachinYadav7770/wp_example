@@ -266,4 +266,111 @@ function delete_employee(){
 	wp_die();
 }
 add_action( 'wp_ajax_delete_employee', 'delete_employee' );
+
+
+/**
+ * Register a custom post type called "book".
+ *
+ * @see get_post_type_labels() for label keys.
+ */
+function cp_custom_init() {
+	$labels = array(
+		'name'                  => _x( 'Custom posts', 'Post type general name', 'textdomain' ),
+		'singular_name'         => _x( 'Custom post', 'Post type singular name', 'textdomain' ),
+		'menu_name'             => _x( 'Custom posts', 'Admin Menu text', 'textdomain' ),
+		'name_admin_bar'        => _x( 'Custom post', 'Add New on Toolbar', 'textdomain' ),
+		'add_new'               => __( 'Add New', 'textdomain' ),
+		'add_new_item'          => __( 'Add New Custom post', 'textdomain' ),
+		'new_item'              => __( 'New Custom post', 'textdomain' ),
+		'edit_item'             => __( 'Edit Custom post', 'textdomain' ),
+		'view_item'             => __( 'View Custom post', 'textdomain' ),
+		'all_items'             => __( 'All Custom posts', 'textdomain' ),
+		'search_items'          => __( 'Search custom posts', 'textdomain' ),
+		'parent_item_colon'     => __( 'Parent custom posts:', 'textdomain' ),
+		'not_found'             => __( 'No custom posts found.', 'textdomain' ),
+		'not_found_in_trash'    => __( 'No custom posts found in Trash.', 'textdomain' ),
+		'featured_image'        => _x( 'Custom post Cover Image', 'Overrides the “Featured Image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'set_featured_image'    => _x( 'Set cover image', 'Overrides the “Set featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'remove_featured_image' => _x( 'Remove cover image', 'Overrides the “Remove featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'use_featured_image'    => _x( 'Use as cover image', 'Overrides the “Use as featured image” phrase for this post type. Added in 4.3', 'textdomain' ),
+		'archives'              => _x( 'Custom post archives', 'The post type archive label used in nav menus. Default “Post Archives”. Added in 4.4', 'textdomain' ),
+		'insert_into_item'      => _x( 'Insert into custom post', 'Overrides the “Insert into post”/”Insert into page” phrase (used when inserting media into a post). Added in 4.4', 'textdomain' ),
+		'uploaded_to_this_item' => _x( 'Uploaded to this custom post', 'Overrides the “Uploaded to this post”/”Uploaded to this page” phrase (used when viewing media attached to a post). Added in 4.4', 'textdomain' ),
+		'filter_items_list'     => _x( 'Filter custom posts list', 'Screen reader text for the filter links heading on the post type listing screen. Default “Filter posts list”/”Filter pages list”. Added in 4.4', 'textdomain' ),
+		'items_list_navigation' => _x( 'Custom posts list navigation', 'Screen reader text for the pagination heading on the post type listing screen. Default “Posts list navigation”/”Pages list navigation”. Added in 4.4', 'textdomain' ),
+		'items_list'            => _x( 'Custom posts list', 'Screen reader text for the items list heading on the post type listing screen. Default “Posts list”/”Pages list”. Added in 4.4', 'textdomain' ),
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'cp_post' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+        'taxonomies'         => array()
+	);
+
+	register_post_type( 'custom_post', $args );
+}
+
+add_action( 'init', 'cp_custom_init' );
+
+
+/**
+ * Add custom taxonomies
+ *
+ * Additional custom taxonomies can be defined here
+ */
+function add_custom_taxonomies() {
+    // Add new "Locations" taxonomy to Posts
+    register_taxonomy('location', 'custom_post', array(
+      // Hierarchical taxonomy (like categories)
+      'hierarchical' => true,
+      // This array of options controls the labels displayed in the WordPress Admin UI
+      'labels' => array(
+        'name' => _x( 'Locations', 'taxonomy general name' ),
+        'singular_name' => _x( 'Location', 'taxonomy singular name' ),
+        'search_items' =>  __( 'Search Locations' ),
+        'all_items' => __( 'All Locations' ),
+        'parent_item' => __( 'Parent Location' ),
+        'parent_item_colon' => __( 'Parent Location:' ),
+        'edit_item' => __( 'Edit Location' ),
+        'update_item' => __( 'Update Location' ),
+        'add_new_item' => __( 'Add New Location' ),
+        'new_item_name' => __( 'New Location Name' ),
+        'menu_name' => __( 'Locations' ),
+      ),
+      // Control the slugs used for this taxonomy
+      'rewrite' => array(
+        'slug' => 'locations', // This controls the base slug that will display before each term
+        'with_front' => false, // Don't display the category base before "/locations/"
+        'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+      ),
+    ));
+  }
+  add_action( 'init', 'add_custom_taxonomies', 0 );
+
+
+
+  function cp_user_registration_shortcode(){
+
+    if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+    
+    ob_start();
+    include('public/userRegistrationForm.php');
+    return ob_get_clean();
+    
+	wp_die();
+ }
+ 
+ add_shortcode('cp-user-registration-form', 'cp_user_registration_shortcode');
 ?>

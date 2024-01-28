@@ -1,0 +1,42 @@
+2024-01-28T12:13:37+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\public\userRegistrationForm.php:36
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php(369): include()
+#1 C:\xampp\htdocs\wordpress\wp-includes\shortcodes.php(433): cp_user_registration_shortcode('', '', 'cp-user-registr...')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\xampp\htdocs\wordpress\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(cp\\-us...', 'do_shortcode_ta...', '\n<p>checking th...')
+#4 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): do_shortcode('\n<p>checking th...')
+#5 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(205): WP_Hook->apply_filters('\n<p>checking th...', Array)
+#6 C:\xampp\htdocs\wordpress\wp-includes\blocks\post-content.php(54): apply_filters('the_content', '<!-- wp:paragra...')
+#7 C:\xampp\htdocs\wordpress\wp-includes\class-wp-block.php(258): render_block_core_post_content(Array, '<!-- wp:paragra...', Object(WP_Block))
+#8 C:\xampp\htdocs\wordpress\wp-includes\class-wp-block.php(244): WP_Block->render()
+#9 C:\xampp\htdocs\wordpress\wp-includes\blocks.php(1133): WP_Block->render()
+#10 C:\xampp\htdocs\wordpress\wp-includes\blocks.php(1171): render_block(Array)
+#11 C:\xampp\htdocs\wordpress\wp-includes\block-template.php(231): do_blocks('<!-- wp:templat...')
+#12 C:\xampp\htdocs\wordpress\wp-includes\template-canvas.php(12): get_the_block_template_html()
+#13 C:\xampp\htdocs\wordpress\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#14 C:\xampp\htdocs\wordpress\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#15 C:\xampp\htdocs\wordpress\index.php(17): require('C:\\xampp\\htdocs...')
+#16 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\public\userRegistrationForm.php on line 36
+
+2024-01-28T12:14:07+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\public\userRegistrationForm.php:36
+Stack trace:
+#0 C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\cp_plugin.php(369): include()
+#1 C:\xampp\htdocs\wordpress\wp-includes\shortcodes.php(433): cp_user_registration_shortcode('', '', 'cp-user-registr...')
+#2 [internal function]: do_shortcode_tag(Array)
+#3 C:\xampp\htdocs\wordpress\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(cp\\-us...', 'do_shortcode_ta...', '\n<p>checking th...')
+#4 C:\xampp\htdocs\wordpress\wp-includes\class-wp-hook.php(310): do_shortcode('\n<p>checking th...')
+#5 C:\xampp\htdocs\wordpress\wp-includes\plugin.php(205): WP_Hook->apply_filters('\n<p>checking th...', Array)
+#6 C:\xampp\htdocs\wordpress\wp-includes\blocks\post-content.php(54): apply_filters('the_content', '<!-- wp:paragra...')
+#7 C:\xampp\htdocs\wordpress\wp-includes\class-wp-block.php(258): render_block_core_post_content(Array, '<!-- wp:paragra...', Object(WP_Block))
+#8 C:\xampp\htdocs\wordpress\wp-includes\class-wp-block.php(244): WP_Block->render()
+#9 C:\xampp\htdocs\wordpress\wp-includes\blocks.php(1133): WP_Block->render()
+#10 C:\xampp\htdocs\wordpress\wp-includes\blocks.php(1171): render_block(Array)
+#11 C:\xampp\htdocs\wordpress\wp-includes\block-template.php(231): do_blocks('<!-- wp:templat...')
+#12 C:\xampp\htdocs\wordpress\wp-includes\template-canvas.php(12): get_the_block_template_html()
+#13 C:\xampp\htdocs\wordpress\wp-includes\template-loader.php(106): include('C:\\xampp\\htdocs...')
+#14 C:\xampp\htdocs\wordpress\wp-blog-header.php(19): require_once('C:\\xampp\\htdocs...')
+#15 C:\xampp\htdocs\wordpress\index.php(17): require('C:\\xampp\\htdocs...')
+#16 {main}
+  thrown in C:\xampp\htdocs\wordpress\wp-content\plugins\cp_plugin\public\userRegistrationForm.php on line 36
+
